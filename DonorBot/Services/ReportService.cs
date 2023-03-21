@@ -1,10 +1,12 @@
 ﻿using AngleSharp.Html.Parser;
+using BaseBot;
 using BaseBot.Models;
+using DonorBot.Configs;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Timer = System.Timers.Timer;
 
-namespace BaseBot;
+namespace DonorBot.Services;
 
 public class ReportService
 {

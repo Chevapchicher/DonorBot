@@ -1,9 +1,10 @@
 ﻿using AngleSharp;
 using AngleSharp.Html.Parser;
+using BaseBot;
 using BaseBot.Models;
 using Timer = System.Timers.Timer;
 
-namespace BaseBot;
+namespace DonorBot.Services;
 
 public class BotHost
 {
@@ -15,5 +16,5 @@ public class BotHost
         reportService.Start();
     }
 
-   
+
 }

@@ -1,6 +1,6 @@
 ﻿using BaseBot.Models;
 
-namespace BaseBot;
+namespace DonorBot.Configs;
 
 public class AppConfig
 {

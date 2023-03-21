@@ -6,7 +6,16 @@ public partial class TelegramBot
 {
     private async Task ProcessTextMessage(Message mes, string message)
     {
+        switch (message)
+        {
+            case "/offnot":
+                _notificationService.SetNotification(mes.Chat.Id, false);
+                return;
 
+            case "/onnot":
+                _notificationService.SetNotification(mes.Chat.Id, true);
+                return;
+        }
     }
 
     private async Task ProcessCallbackQuery(CallbackQuery callbackQuery)
@@ -16,7 +25,7 @@ public partial class TelegramBot
 
     public async Task SendTextMessage(string text, bool disableNotification = true)
     {
-        foreach (var subscriber in _config.Subscribers)
+        foreach (var subscriber in _notificationService.GetIdsForNotifications())
         {
             try
             {

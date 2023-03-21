@@ -1,4 +1,4 @@
-﻿namespace BaseBot;
+﻿namespace DonorBot.Services;
 
 public class LogService
 {

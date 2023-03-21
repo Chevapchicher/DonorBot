@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using DonorBot.Configs;
+using DonorBot.Services;
+using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
@@ -10,13 +12,16 @@ public partial class TelegramBot
     private readonly AppConfig _config;
     private readonly TelegramBotClient _tgBotClient;
     private readonly LogService _logService;
+    private readonly NotificationService _notificationService;
 
     public TelegramBot(IOptions<AppConfig> config,
-        LogService logService)
+        LogService logService,
+        NotificationService notificationService)
     {
         _config = config.Value;
         _logService = logService;
         _tgBotClient = new TelegramBotClient(config.Value.BotToken);
+        _notificationService = notificationService;
     }
 
     public void Start()
