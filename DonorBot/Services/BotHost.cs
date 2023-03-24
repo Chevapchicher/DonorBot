@@ -9,12 +9,8 @@ namespace DonorBot.Services;
 public class BotHost
 {
 
-    public BotHost(TelegramBot tgBot,
-        ReportService reportService)
+    public BotHost(TelegramBot tgBot)
     {
         tgBot.Start();
-        reportService.Start();
     }
-
-
 }

@@ -2,46 +2,40 @@
 using BaseBot;
 using BaseBot.Models;
 using DonorBot.Configs;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Timer = System.Timers.Timer;
 
 namespace DonorBot.Services;
 
-public class ReportService
+public class ReportService : BackgroundService
 {
     private readonly TelegramBot _tgBot;
     private readonly AppConfig _config;
     private readonly LogService _logService;
+    private readonly PeriodicTimer _timer;
 
     public ReportService(TelegramBot tgBot,
         IOptions<AppConfig> config,
         LogService logService)
     {
+        _timer = new PeriodicTimer(config.Value.Period);
         _tgBot = tgBot;
         _config = config.Value;
         _logService = logService;
     }
 
-    public void Start()
-    {
-        var timer = new Timer(_config.PeriodHours * 60 * 60 * 1000);
-        timer.Elapsed += async (_, _) => await PrepareReport();
-        timer.Start();
-
-        PrepareReport().ConfigureAwait(false);
-    }
-
-    private async Task PrepareReport()
+    private async Task Process(CancellationToken token)
     {
         try
         {
             HttpClient client = new();
-            var content = await (await client.GetAsync(_config.ParsingUrl)).Content
-                .ReadAsStringAsync();
+            var content = await (await client.GetAsync(_config.ParsingUrl, token)).Content
+                .ReadAsStringAsync(token);
 
             var parser = new HtmlParser();
-            var doc = parser.ParseDocument(content);
+            var doc = await parser.ParseDocumentAsync(content, token);
 
             var items = doc.GetElementsByClassName("spk-lights__item");
 
@@ -103,6 +97,20 @@ public class ReportService
             _logService.AddLog(exception.ToString());
         }
     }
+
+    protected override async Task ExecuteAsync(CancellationToken token)
+    {
+        do
+        {
+            try
+            {
+                await Process(token);
+            }
+            catch (Exception ex)
+            {
+                await _tgBot.SendTextMessage($"Произошла какая-то хуйня: {ex}");
+            }
+
+        } while (await _timer.WaitForNextTickAsync(token) || !token.IsCancellationRequested);
+    }
 }
-
-

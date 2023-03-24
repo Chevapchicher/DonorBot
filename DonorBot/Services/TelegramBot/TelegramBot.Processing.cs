@@ -10,10 +10,12 @@ public partial class TelegramBot
         {
             case "/offnot":
                 _notificationService.SetNotification(mes.Chat.Id, false);
+                await _tgBotClient.SendTextMessageAsync(mes.Chat.Id, "Оповещения выключены");
                 return;
 
             case "/onnot":
                 _notificationService.SetNotification(mes.Chat.Id, true);
+                await _tgBotClient.SendTextMessageAsync(mes.Chat.Id, "Оповещения включены");
                 return;
         }
     }

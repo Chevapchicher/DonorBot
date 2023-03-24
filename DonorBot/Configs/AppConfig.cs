@@ -9,6 +9,6 @@ public class AppConfig
     public string BotToken { get; set; }
     public long[] Subscribers { get; set; }
     public TypeRezus[] WatchingGroups { get; set; }
-    public int PeriodHours { get; set; }
+    public TimeSpan Period { get; set; }
     public string ParsingUrl { get; set; }
 }
