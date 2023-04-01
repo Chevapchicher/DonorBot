@@ -1,4 +1,4 @@
-﻿namespace BaseBot.Models;
+﻿namespace DonorBot.Models;
 
 public class Report
 {

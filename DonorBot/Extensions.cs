@@ -1,4 +1,4 @@
-﻿namespace BaseBot;
+﻿namespace DonorBot;
 
 public static class Extensions
 {

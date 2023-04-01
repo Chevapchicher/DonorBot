@@ -1,7 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace BaseBot;
+namespace DonorBot.Services.TelegramBot;
 public partial class TelegramBot
 {
     private async Task ProcessTextMessage(Message mes, string message)

@@ -1,11 +1,10 @@
 ﻿using DonorBot.Configs;
-using DonorBot.Services;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 
-namespace BaseBot;
+namespace DonorBot.Services.TelegramBot;
 
 public partial class TelegramBot
 {

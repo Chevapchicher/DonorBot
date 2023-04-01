@@ -1,7 +1,8 @@
 ﻿using DonorBot.Services;
+using DonorBot.Services.TelegramBot;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BaseBot;
+namespace DonorBot;
 
 public static class RegistrationDeps
 {

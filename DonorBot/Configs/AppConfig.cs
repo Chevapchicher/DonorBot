@@ -1,4 +1,4 @@
-﻿using BaseBot.Models;
+﻿using DonorBot.Models;
 
 namespace DonorBot.Configs;
 

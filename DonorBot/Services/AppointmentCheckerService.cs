@@ -1,7 +1,6 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
-using BaseBot;
 using DonorBot.Configs;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -11,9 +10,9 @@ namespace DonorBot.Services;
 public class AppointmentCheckerService : BackgroundService
 {
     private readonly PeriodicTimer _timer;
-    private readonly TelegramBot _tgBot;
+    private readonly TelegramBot.TelegramBot _tgBot;
 
-    public AppointmentCheckerService(TelegramBot tgBot, IOptions<AppointmentConfig> config)
+    public AppointmentCheckerService(TelegramBot.TelegramBot tgBot, IOptions<AppointmentConfig> config)
     {
         _timer = new PeriodicTimer(config.Value.Period);
         _tgBot = tgBot;
@@ -87,7 +86,7 @@ public class AppointmentCheckerService : BackgroundService
             { "format", "raw" },
             { "id", "28" },
             { "cdate", DateTime.Now.NextDayOfWeek(DayOfWeek.Monday)
-                .AddDays(7 * numberOfWeek - 1)
+                .AddDays(7 * numberOfWeek)
                 .ToEpoch()
                 .ToString()
             }

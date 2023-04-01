@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DonorBot;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BaseBot;
 using DonorBot.Configs;
 using DonorBot.Services;
 
